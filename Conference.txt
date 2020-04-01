@@ -116,7 +116,11 @@ namespace Task_3_conference_
         {
             if (CheckSaturday())
             {
-                listBox1.DataSource = new Day[] { Day.Tuesday, Day.Monday, Day.Wednesday, Day.Thursday, Day.Friday };
+
+               
+
+                listBox1.DataSource = new Day[] { Day.Monday, Day.Tuesday };
+
             }
         }
 
