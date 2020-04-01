@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections;
 
 namespace Task_3_conference_
 {
@@ -76,9 +75,9 @@ namespace Task_3_conference_
                         g.FillEllipse(Brushes.Green, new Rectangle(250, 170, 120, 84));
                         break;
                     }
-                case (Color.black):
+                case (Color.blue):
                     {
-                        g.FillEllipse(Brushes.Black, new Rectangle(250, 170, 120, 84));
+                        g.FillEllipse(Brushes.blue, new Rectangle(250, 170, 120, 84));
                         break;
                     }
                 case (Color.purple):
