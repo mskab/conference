@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections
 
 namespace Conference
 {
-    enum Days { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
+    enum Days { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
     enum Time { Morning, LunchBreak, Afternoon, Evening }
     enum Place { Office, Hall, Chamber }
     enum Chancellery { Pen, Pencil }
