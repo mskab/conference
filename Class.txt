@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Conference
+{
+    enum Days { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
+    enum Time { Morning, LunchBreak, Afternoon, Evening }
+    enum Place { Office, Hall, Chamber }
+    enum Chancellery { Pen, Pencil }
+    enum Colors { Red, Green, Blue, Black }
+    class Conference
+    {
+        private Days day;
+        private Time time;
+        public Place place { get; set; }
+        public Chancellery chancellery { get; set; }
+        public Colors color { get; set; }
+
+        public Days Day
+        {
+            get
+            {
+                return day;
+            }
+            set
+            {
+                if (value == Days.Friday && (time == Time.Afternoon || time == Time.Evening))
+                {
+                    throw new Exception("Wrong time selected");
+                }
+                else
+                {
+                    day = value;
+                }
+            }
+        }
+        public Time Time
+        {
+            get
+            {
+                return time;
+            }
+            set
+            {
+                if(day == Days.Friday && (value == Time.Afternoon || value == Time.Evening))
+                {
+                    throw new Exception("Wrong time selected");
+                }
+                else
+                {
+                    time = value;
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("The conference will take place on {0} {1} in the {2}.\nHave a {3} {4} with you",
+                day, time, place, color, chancellery);
+        }
+    }
+}
