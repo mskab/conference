@@ -1,0 +1,129 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Task_3_conference_
+{
+    public partial class Form1 : Form
+    {
+        Conference meeting;
+        public Form1()
+        {
+            InitializeComponent();
+            meeting = new Conference();
+            comboBox1.DataSource = Enum.GetValues(typeof(Time));
+            comboBox2.DataSource = Enum.GetValues(typeof(Place));
+            listBox1.DataSource = Enum.GetValues(typeof(Day));
+            listBox2.DataSource = Enum.GetValues(typeof(Color));
+        }
+
+        private void ChooseTime(object sender, EventArgs e)
+        {
+            try
+            {
+                if (comboBox1.BackColor == System.Drawing.Color.Red)
+                {
+                    comboBox1.BackColor = SystemColors.ControlLight;
+                }
+                meeting.Time = (Time)comboBox1.SelectedItem;
+                comboBox1.BackColor = SystemColors.ControlLight;
+            }
+            catch (BadTimeException exp)
+            {
+                comboBox1.BackColor = System.Drawing.Color.Red;
+                MessageBox.Show(exp.Message);
+            }
+        }
+
+        private void ChoosePlace(object sender, EventArgs e)
+        {
+            meeting.Place = (Place)comboBox2.SelectedItem;
+        }
+
+        private void ChooseDay(object sender, EventArgs e)
+        {
+            try
+            {
+                meeting.Day = (Day)listBox1.SelectedItem;
+            }
+            catch (BadTimeException exp)
+            {
+                comboBox1.BackColor = System.Drawing.Color.Red;
+                MessageBox.Show(exp.Message);
+            }
+        }
+
+         protected override void OnPaint(PaintEventArgs e)
+         {
+            
+            Graphics g = e.Graphics;
+            switch (meeting.Color)
+            {
+                case (Color.red):
+                    {
+                        g.FillEllipse(Brushes.Red, new Rectangle(250, 170, 120, 84));
+                        break;
+                    }
+                case (Color.green):
+                    {
+                        g.FillEllipse(Brushes.Green, new Rectangle(250, 170, 120, 84));
+                        break;
+                    }
+                case (Color.black):
+                    {
+                        g.FillEllipse(Brushes.Black, new Rectangle(250, 170, 120, 84));
+                        break;
+                    }
+                case (Color.purple):
+                    {
+                        g.FillEllipse(Brushes.Purple, new Rectangle(250, 170, 120, 84));
+                        break;
+                    }
+                case (Color.blue):
+                    {
+                        g.FillEllipse(Brushes.Blue, new Rectangle(250, 170, 120, 84));
+                        break;
+                    }
+            }
+
+        }
+
+        private void ChooseColor(object sender, EventArgs e)
+        {
+            meeting.Color = (Color)listBox2.SelectedItem;
+            this.Refresh();
+        }
+        private bool CheckSaturday()
+        {
+            Object check= listBox1.Items.Contains(Day.Saturday);
+            return listBox1.Items.Contains(Day.Saturday);
+        }
+        private void AddSaturday(object sender, EventArgs e)
+        {
+            if (!CheckSaturday())
+            {
+                listBox1.DataSource = new Day[] { Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday, Day.Friday,Day.Saturday};
+            }
+        }
+
+        private void DeleteSaturday(object sender, EventArgs e)
+        {
+            if (CheckSaturday())
+            {
+                listBox1.DataSource = new Day[] { Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday, Day.Friday };
+            }
+        }
+
+        private void CreteMessage(object sender, EventArgs e)
+        {
+            string message = meeting.ToString();
+            MessageBox.Show(message);                
+        }
+    }
+}
