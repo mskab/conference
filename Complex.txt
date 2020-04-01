@@ -1,0 +1,114 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Calculator
+{
+    class Complex
+    {
+        public double real { get; set; }
+        public double imaginary { get; set; }
+        public Complex()
+        {
+            real = 0.0;
+            imaginary = 0.0;
+        }
+        public Complex(double rez, double imz)
+        {
+            real = rez;
+            imaginary = imz;
+        }
+        public static Complex operator +(Complex c)
+        {
+            return c;
+        }
+        public static Complex operator -(Complex c)
+        {
+            return new Complex(-c.real, -c.imaginary);
+        }
+        public static Complex operator +(Complex c1, Complex c2) //додавання двох комплексних чисел 
+        {
+            return new Complex(c1.real + c2.real, c1.imaginary + c2.imaginary);
+        }
+        public static Complex operator -(Complex c1, Complex c2) //віднімання двох комплексних чисел
+        {
+            return c1 + (-c2);
+        }
+        public static Complex operator *(Complex c1, Complex c2) //множення двох комплексних чисел
+        {
+            return new Complex(c1.real * c2.real - c1.imaginary * c2.imaginary, c1.real * c2.imaginary + c1.imaginary * c2.real);
+        }
+        public static Complex operator /(Complex c1, Complex c2) //ділення двох комплексних чисел
+        {
+            if ((c2.real == 0.0) && (c2.imaginary == 0.0))
+                throw new DivideByZeroException("Can't divide by zero Complex number");
+
+            return new Complex((c1.real * c2.real + c1.imaginary * c2.imaginary) / (c2.real * c2.real + c2.imaginary * c2.imaginary),
+                (c2.real * c1.imaginary - c1.real * c2.imaginary) / (c2.real * c2.real + c2.imaginary * c2.imaginary));
+        }
+        public double Module() //модуль комплексного числа
+        {
+            return Math.Sqrt(Math.Pow(real, 2) + Math.Pow(imaginary, 2));
+        }
+        public string TrigonometricForm() //конвертер алгебраічної форми комплексного числа в тригонометричну
+        {
+            double r = this.Module();
+            double fi = 0.0;
+            if (real > 0)
+            {
+                fi = Math.Atan(imaginary / real);
+            }
+            else if (real < 0 && imaginary >= 0)
+            {
+                fi = Math.PI + Math.Atan(imaginary / real);
+            }
+            else if (real < 0 && imaginary < 0)
+            {
+                fi = (-Math.PI) + Math.Atan(imaginary / real);
+            }
+            else if (real == 0 && imaginary > 0)
+            {
+                fi = Math.PI / 2;
+            }
+            else if (real == 0 && imaginary < 0)
+            {
+                fi = -(Math.PI / 2);
+            }
+            return Math.Round(r, 2).ToString() + "(cos(" + Math.Round(fi, 2).ToString() + ") + isin(" + Math.Round(fi, 2).ToString() + "))";
+
+        }
+        public static bool operator ==(Complex c1, Complex c2)
+        {
+            return (c1.real == c2.real) && (c1.imaginary == c2.imaginary);
+        }
+        public static bool operator !=(Complex c1, Complex c2)
+        {
+            return (!(c1 == c2));
+        }
+        public bool Equals(Complex c)
+        {
+            return this == c;
+        }
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Complex);
+        }
+        public override int GetHashCode()
+        {
+            return (real.GetHashCode() ^ imaginary.GetHashCode());
+        }
+        public override string ToString()
+        {
+            if (imaginary < 0)
+            {
+                return (String.Format("({0} - {1}i)", real, -imaginary));
+            }
+            else
+            {
+                return (String.Format("({0} + {1}i)", real, imaginary));
+            }
+        }
+    }
+}
