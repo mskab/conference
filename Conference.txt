@@ -85,9 +85,9 @@ namespace Task_3_conference_
                         g.FillEllipse(Brushes.Purple, new Rectangle(250, 170, 120, 84));
                         break;
                     }
-                case (Color.blue):
+                case (Color.yellow):
                     {
-                        g.FillEllipse(Brushes.Blue, new Rectangle(250, 170, 120, 84));
+                        g.FillEllipse(Brushes.yellow, new Rectangle(250, 170, 120, 84));
                         break;
                     }
             }
